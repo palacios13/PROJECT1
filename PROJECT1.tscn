@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq42r6gv63sxd"]
+
+[ext_resource type="Script" path="res://PROJECT1.cs" id="1_6ox0t"]
+[ext_resource type="PackedScene" uid="uid://dgxwvehspcn4u" path="res://Models381/SpringModel.tscn" id="2_chb26"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5p2vj"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_eyeyc"]
+sky_material = SubResource("ProceduralSkyMaterial_5p2vj")
+
+[sub_resource type="Environment" id="Environment_0pqqh"]
+background_mode = 2
+sky = SubResource("Sky_eyeyc")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lpv25"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hyty1"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nl7al"]
+albedo_color = Color(1, 0.666667, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qfp17"]
+material = SubResource("StandardMaterial3D_nl7al")
+radius = 0.05
+height = 0.1
+
+[node name="PROJECT1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0914342, 0)
+script = ExtResource("1_6ox0t")
+
+[node name="SpringModel" parent="." instance=ExtResource("2_chb26")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326663, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0pqqh")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_lpv25")
+
+[node name="Anchor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603405, 0)
+mesh = SubResource("BoxMesh_hyty1")
+
+[node name="Ball1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262579, 0.362253, 0)
+mesh = SubResource("SphereMesh_qfp17")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.676196, 1.69116)
